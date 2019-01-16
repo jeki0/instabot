@@ -1,11 +1,11 @@
 const ig = require('./instagram2');
 const pass = require('./password_user');
 
-var current_user = 'science.accessories';
-var prev_user = 'science.accessories';
-var attempt = 1;
+var current_user = 'g.kostakes';
+var prev_user = 'g.kostakes';
 
-var likes = 0;
+var attempt = 0;
+var likes = 263;
 
 (async () => {
     
@@ -26,6 +26,7 @@ var likes = 0;
         
         await console.log('---------------');
         
+        attempt = attempt + getRandomInt(0,4);
         next_user = await ig.goNextUser(current_user, attempt);
         
         if(!next_user[0].close_user) {
@@ -45,3 +46,7 @@ var likes = 0;
     debugger;
     
 })()
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
