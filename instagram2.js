@@ -23,7 +23,7 @@ const instagram = {
      
         await instagram.page.goto(BASE_URL, {waitUntil: 'networkidle2'});
         
-        await instagram.page.waitFor(1000);
+        await instagram.page.waitFor(2000);
         
         let loginButton = await instagram.page.$x('//a[contains(text(), "Вход")]');
         
@@ -32,7 +32,7 @@ const instagram = {
         
         await instagram.page.waitForNavigation({waitUntil: 'networkidle2'});
         
-        await instagram.page.waitFor(1000);
+        await instagram.page.waitFor(5000);
         
         //Writing the username and password
         await instagram.page.type('input[name="username"]', username, { delay: 50 });
@@ -47,8 +47,8 @@ const instagram = {
         
     },
     
-    likeProcess: async (curent_user) => {
-    
+    likeProcess: async (curent_user, likes) => {
+        
         await instagram.page.goto('https://www.instagram.com/' + curent_user + '/', { waitUntil: 'networkidle2'});
         await instagram.page.waitFor(1000);
         
@@ -58,11 +58,11 @@ const instagram = {
         //Начинаем лайкать
         let posts = await instagram.page.$$('img[decoding="auto"]');
 
-        for(let i = 0; i < 2; i++) {
+        for(let i = 0; i < 24; i++) {
 
             let post = posts[i];
             
-            if(!post) {return}
+            if(!post) {return likes;}
             //click on the post
             await post.click();
 
@@ -88,27 +88,37 @@ const instagram = {
 
             await instagram.page.waitFor(3000);
 
+            likes++;
         }
 
         await instagram.page.waitFor(5000);
         
+        return likes;
     },
     
     goNextUser: async (curent_user, attempt_number) => {
         
+        //go to new user
         await instagram.page.goto('https://www.instagram.com/' + curent_user + '/', { waitUntil: 'networkidle2'});
-        await instagram.page.waitFor(1000);
+        await instagram.page.waitFor(2000);
         
+        //click followers
         let loginButton = await instagram.page.$$('a[href="/' + curent_user + '/followers/"]');
+        
+        //close user or not
         if(loginButton[0]) {
             await loginButton[0].click();
 
-            await instagram.page.waitFor(1000);
-            let element = await instagram.page.$("a[title]");
+            await instagram.page.waitFor(2000);
+            let element = await instagram.page.$$("a[title]");
 
-            return [{ curent_user: await instagram.page.evaluate(element => element.textContent, element)}, {close_user: 0}];
+            let link_user = element[attempt_number];
+            
+            if(!link_user) {console.log("Нет такого");}
+            
+            return [{ curent_user: await instagram.page.evaluate(link_user => link_user.textContent, link_user), close_user: 0}];
         } else {
-            return [{ curent_user:''}, {close_user: 1}];
+            return [{ curent_user:'', close_user: 1}];
         }
         
     }
