@@ -57,7 +57,7 @@ const instagram = {
 
             let posts = await instagram.page.$$('article > div:nth-child(3) img[decoding="auto"]');
             
-            for(let i = 0; i < 15; i++) {
+            for(let i = 0; i < 24; i++) {
 
                 let post = posts[i];
 

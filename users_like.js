@@ -1,9 +1,9 @@
 const ig = require('./instagram2');
 const pass = require('./password_user');
 
-var current_user = 'ankit_patel3692';
-var prev_user = 'geekonics';
-var attempt = 0;
+var current_user = 'science.accessories';
+var prev_user = 'az_handmades';
+var attempt = 1;
 
 (async () => {
     
@@ -21,13 +21,17 @@ var attempt = 0;
         await console.log(next_user[0].close_user);
         
         if(!next_user[0].close_user) {
-            current_user = next_user[0].curent_user;
             prev_user = current_user;
+            current_user = next_user[0].curent_user;
             attempt = 0;
         } else {
             current_user = prev_user;
             attempt++;
         }
+        
+        await console.log('current:' + current_user);
+        await console.log('prev:' + prev_user);
+        
     }
     
     
