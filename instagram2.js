@@ -104,10 +104,13 @@ const instagram = {
         await loginButton[0].click();
         
         await instagram.page.waitFor(1000);
-        let user_new = await instagram.page.$$('a[title]');
-        //await user_new[0].click();
+        //let user_new = await instagram.page.$$('a[title]');
+        //await console.log(user_new[0].getProperty('textContent'));
         
-        await console.log(user_new.title);
+        //await console.log(user_new[0].textContent);
+        
+        let element = await page.$("h1");
+        await console.log(await page.evaluate(element => element.textContent, element));
         
     }
     
