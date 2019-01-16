@@ -42,7 +42,7 @@ const instagram = {
         loginButton = await instagram.page.$x('//button[contains(text(), "Войти")]');
         await loginButton[0].click();
         
-        await instagram.page.waitFor(10000);
+        await instagram.page.waitFor(3000);
         await instagram.page.waitFor('a > span[aria-label="Профиль"]');
         
     },
@@ -58,7 +58,7 @@ const instagram = {
         //Начинаем лайкать
         let posts = await instagram.page.$$('img[decoding="auto"]');
 
-        for(let i = 0; i < 15; i++) {
+        for(let i = 0; i < 2; i++) {
 
             let post = posts[i];
             
@@ -89,28 +89,27 @@ const instagram = {
             await instagram.page.waitFor(3000);
 
         }
-        
 
-        await instagram.page.waitFor(15000);
+        await instagram.page.waitFor(5000);
         
     },
     
-    goNextUser: async (curent_user) => {
+    goNextUser: async (curent_user, attempt_number) => {
         
         await instagram.page.goto('https://www.instagram.com/' + curent_user + '/', { waitUntil: 'networkidle2'});
         await instagram.page.waitFor(1000);
         
         let loginButton = await instagram.page.$$('a[href="/' + curent_user + '/followers/"]');
-        await loginButton[0].click();
-        
-        await instagram.page.waitFor(1000);
-        //let user_new = await instagram.page.$$('a[title]');
-        //await console.log(user_new[0].getProperty('textContent'));
-        
-        //await console.log(user_new[0].textContent);
-        
-        let element = await page.$("h1");
-        await console.log(await page.evaluate(element => element.textContent, element));
+        if(loginButton[0]) {
+            await loginButton[0].click();
+
+            await instagram.page.waitFor(1000);
+            let element = await instagram.page.$("a[title]");
+
+            return [{ curent_user: await instagram.page.evaluate(element => element.textContent, element)}, {close_user: 0}];
+        } else {
+            return [{ curent_user:''}, {close_user: 1}];
+        }
         
     }
     
