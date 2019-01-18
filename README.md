@@ -2,6 +2,7 @@
 
 1.Create new file 'password.js' and paste it -> 
 
+``` js
 const password_user =  {
 
 password: 'password',
@@ -11,6 +12,7 @@ email: 'email'
 }
 
 module.exports = password_user;
+```
 
 2. Change login and password 
 
