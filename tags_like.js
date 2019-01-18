@@ -5,7 +5,7 @@ const pass = require('./js/password_user');
     
     await ig.initialize();
     
-    await ig.login('577695@mail.ru', pass.password);
+    await ig.login(pass.email, pass.password);
     
     await ig.likeTagsProcess(['java', 'programming', 'coding', 'code', 'index', 'css', 'js', 'php', 'html', 'htm', 'ii', 'ai', 'prog', 'delphi', 'comp', 'robot' ]);
     

@@ -3,8 +3,6 @@ const puppeteer = require('puppeteer');
 const BASE_URL = 'https://instagram.com/';
 const TAG_URL = (tag) => `https://www.instagram.com/explore/tags/${tag}/`;
 
-var col_liked = 0;
-
 const instagram = {
     browser: null,
     page: null,

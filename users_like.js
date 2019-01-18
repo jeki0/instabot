@@ -5,13 +5,13 @@ var current_user = 'rafael.cramolich';
 var prev_user = 'rafael.cramolich';
 
 var attempt = 0;
-var likes = 1714;
+var likes = 0;
 
 (async () => {
     
     await ig.initialize();
     
-    await ig.login('577695@mail.ru', pass.password);
+    await ig.login(pass.email, pass.password);
     
     while(true) {
         if(prev_user != current_user) {
