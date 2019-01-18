@@ -62,7 +62,12 @@ const instagram = {
 
             let post = posts[i];
             
-            if(!post) {return likes;}
+            if(!post) {
+                
+                return likes;
+            
+            }
+            
             //click on the post
             await post.click();
 
@@ -70,12 +75,22 @@ const instagram = {
             await instagram.page.waitFor('span[id="react-root"][aria-hidden="true"]');
             await instagram.page.waitFor(1000);
 
+            
+            let isWasLiked = await instagram.page.$('span[aria-label="Не нравится"]');
+
+            if(isWasLiked) {
+
+                return likes;    
+                
+            }
+            
+            
             let isLikable = await instagram.page.$('span[aria-label="Нравится"]');
 
             if(isLikable) {
 
                 await instagram.page.click('span[aria-label="Нравится"]');
-
+                
                 col_liked++;
 
             }
@@ -113,8 +128,6 @@ const instagram = {
             let element = await instagram.page.$$("a[title]");
 
             let link_user = element[attempt_number];
-            
-            if(!link_user) {console.log("Нет такого");}
             
             return [{ curent_user: await instagram.page.evaluate(link_user => link_user.textContent, link_user), close_user: 0}];
         } else {
