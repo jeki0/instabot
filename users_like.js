@@ -1,8 +1,8 @@
-const ig = require('./instagram2');
+const ig = require('./js/instagram2');
 const pass = require('./password_user');
 
-var current_user = 'rafael.cramolich';
-var prev_user = 'rafael.cramolich';
+var current_user = 'potapova9221';
+var prev_user = '';
 
 var attempt = 0;
 var likes = 0;

@@ -88,8 +88,6 @@ const instagram = {
             if(isLikable) {
 
                 await instagram.page.click('span[aria-label="Нравится"]');
-                
-                col_liked++;
 
             }
 
