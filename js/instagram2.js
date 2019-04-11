@@ -35,11 +35,11 @@ const instagram = {
         //Writing the username and password
         await instagram.page.type('input[name="username"]', username, { delay: 50 });
         await instagram.page.type('input[name="password"]', password, { delay: 50 });
-        
+
         //click the login button
-        loginButton = await instagram.page.$x('//button[contains(text(), "Войти")]');
+        loginButton = await instagram.page.$x('//div[contains(text(), "Войти")]');
         await loginButton[0].click();
-        
+
         await instagram.page.waitFor(3000);
         await instagram.page.waitFor('a > span[aria-label="Профиль"]');
         

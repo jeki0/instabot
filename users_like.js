@@ -1,7 +1,7 @@
 const ig = require('./js/instagram2');
 const pass = require('./password_user');
 
-var current_user = 'potapova9221';
+var current_user = 'alinas.view';
 var prev_user = '';
 
 var attempt = 0;

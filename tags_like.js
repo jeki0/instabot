@@ -1,5 +1,5 @@
 const ig = require('./js/instagram');
-const pass = require('./js/password_user');
+const pass = require('./password_user');
 
 (async () => {
     
