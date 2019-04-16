@@ -1,5 +1,32 @@
 const puppeteer = require('puppeteer');
 
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+var nextMan = 0;
+var accountsInfo = 0;
+var likeInfo = 0;
+
+rl.on('line', (input) => {
+    if (input == 'next') {
+        console.log('-> change account');
+        nextMan = 1;
+    }
+    if (input == 'info') {
+        console.log('-> accounts = ' + accountsInfo);
+        console.log('-> likes = ' + likeInfo);
+    }
+    if (input == 'help') {
+        console.log('-> next - for change account instagram');
+        console.log('-> info - check info');
+    }
+});
+
+
 const BASE_URL = 'https://instagram.com/';
 const TAG_URL = (tag) => `https://www.instagram.com/explore/tags/${tag}/`;
 
@@ -45,20 +72,27 @@ const instagram = {
         
     },
     
-    likeProcess: async (curent_user, likes) => {
+    likeProcess: async (curent_user, likes, colAcc) => {
         
         await instagram.page.goto('https://www.instagram.com/' + curent_user + '/', { waitUntil: 'networkidle2'});
         await instagram.page.waitFor(1000);
         
         
-        
+        accountsInfo = colAcc;
         
         //Начинаем лайкать
         let posts = await instagram.page.$$('img[decoding="auto"]');
 
         for(let i = 0; i < 24; i++) {
 
+            if (nextMan == 1) {
+                i = 100;
+                nextMan = 0;
+            }
+            
             let post = posts[i];
+            
+            likeInfo = likes;
             
             if(!post) {
                 

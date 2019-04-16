@@ -1,11 +1,12 @@
 const ig = require('./js/instagram2');
 const pass = require('./password_user');
 
-var current_user = 'alinas.view';
+var current_user = 'love';
 var prev_user = '';
 
 var attempt = 0;
 var likes = 0;
+var accounts = 0;
 
 (async () => {
     
@@ -16,13 +17,12 @@ var likes = 0;
     while(true) {
         if(prev_user != current_user) {
             like_for_one = -1;
-            like_for_one = await ig.likeProcess(current_user, likes);
-            await console.log('---------------');
-            await console.log(like_for_one + '  -  ' + likes);
+            like_for_one = await ig.likeProcess(current_user, likes, accounts);
             if(like_for_one != likes) {
                 attempt = 0;
                 likes = like_for_one;
             }
+            accounts++;
         }
         
         attempt = attempt + getRandomInt(0,2);
